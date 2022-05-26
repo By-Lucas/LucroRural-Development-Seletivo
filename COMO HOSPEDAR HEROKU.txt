@@ -1,0 +1,19 @@
+PARA FAZER DEPLOID NO HERUKO
+
+INSTALAR
+
+# pip install whitenoise gunicorn
+# whitenoise = Para carregas os arquivos estáticos
+# gunicorn = para rodar a aplicação(servidor)
+
+PARA FAZER LOGIN NO VISUAL STUDIO COM HEROKU
+heroku login
+
+
+COMANDO PARA CRIAR SESSÃO
+O nome sorteio-lu tem que ser diferente do que ja deve ter
+
+heroku create sorteio-lu --buildpack heroku/python
+
+ULTIMO COMANDO QUE É PARA FAZER A PUBLICAÇÃO
+git push heroku master

@@ -1,0 +1,1 @@
+web gunicorn sorteio.wsgi --log-file -
