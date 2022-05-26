@@ -7,3 +7,4 @@ venv
 .Procfile
 .runtime.txt
 .db.sqlite3
+.env
