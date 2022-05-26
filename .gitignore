@@ -5,7 +5,6 @@ __Pycache__
 venv
 .txt
 .Procfile
-.db.sqlite3
 .env
 
 !requirements.txt
