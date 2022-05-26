@@ -3,8 +3,9 @@ __Pycache__
 *.pyc
 .idea
 venv
-.COMO HOSPEDAR HEROKU.txt
+.txt
 .Procfile
-*.txt
 .db.sqlite3
 .env
+
+!requirements.txt
