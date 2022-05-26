@@ -3,7 +3,7 @@ __Pycache__
 *.pyc
 .idea
 venv
-COMO HOSPEDAR HEROKU.txt
-Procfile
-runtime.txt
-db.sqlite3
+.COMO HOSPEDAR HEROKU.txt
+.Procfile
+.runtime.txt
+.db.sqlite3
