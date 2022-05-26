@@ -1,9 +1,10 @@
 __Pycache__
 *.*~
 *.pyc
+*.txt
 .idea
 venv
-*|.txt
+
 .Procfile
 .env
 
