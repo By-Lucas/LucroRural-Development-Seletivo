@@ -5,6 +5,6 @@ __Pycache__
 venv
 .COMO HOSPEDAR HEROKU.txt
 .Procfile
-.runtime.txt
+.runtime
 .db.sqlite3
 .env
