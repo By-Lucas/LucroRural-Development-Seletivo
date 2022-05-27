@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect, HttpResponse
+from django.core.paginator import Paginator, InvalidPage
 from django.contrib import messages
 from django.contrib.messages import constants
 from .models import Fornecedor, Csv
 from .forms import CsvForm
-import csv, io
-# Create your views here.
+import csv
+
 
 def export_csv(request):
     queryset = Fornecedor.objects.all()
@@ -45,11 +46,12 @@ def import_csv(request):
 
     return redirect('/')
 
-def upload_file_view(request):
-    fornecedor = Fornecedor.objects.all()
-    
+def all_fornecedores(request):
+    fornecedor = Fornecedor.objects.all().order_by('nome')
     form = CsvForm(request.POST, request.FILES or None)
-
+    paginator = Paginator(fornecedor, 9)
+    page = request.GET.get('page')
+    posts = paginator.get_page(page)
     if form.is_valid():
         form.save()
         form = CsvForm()
@@ -72,6 +74,7 @@ def upload_file_view(request):
             return redirect('/')
     context = {
         'fornecedor':fornecedor,
-        'form':form
+        'form':form,
+        'posts':posts
     }
-    return render(request, 'upload_file.html',context)
+    return render(request, 'all_fornecedores.html',context)
