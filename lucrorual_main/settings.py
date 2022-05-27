@@ -36,10 +36,13 @@ sys.path.append(os.path.join(BASE_DIR, 'apps'))
 
 INSTALLED_APPS +=[
     'bootstrapform',
+    'multiselectfield',
+    'rest_framework',
 
     'fornecedor',
     'notafiscal',
-    'contas_a_pagar'
+    'contas_a_pagar',
+    'frontend'
 ]
 
 MIDDLEWARE = [
