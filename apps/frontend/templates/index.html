@@ -1,9 +1,19 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'index/carousel/carousel.css' %}">
+<script src="{% static 'index/carousel/carousel.js' %}"></script>
+{% endblock %}
+
+<style>
+    .margem{
+        margin-top: -55px;
+    }
+</style>
 
 {% block body %}
 <div class="container">
-    <br>
-    <h1>TESTE IMPORT CSV</h1>
     <div style="align-items: center; display:flex; justify-content: center;">
         {{ message }}
         <br>
@@ -18,11 +28,26 @@
             {% endfor %}
         {% endif %}
     </div>
-
-    <div class="row">
-
-    </div>
 </div>
+    <!--  carousel  -->
+
+
+		<div class="container-fluid  img-fundo">
+			<div class="row justify-content-center">
+				<div class="col-sm text-left">
+                    <h1>TESTE IMPORT CSV</h1>
+                    <h1>TESTE IMPORT CSV</h1>
+                    <h1>TESTE IMPORT CSV</h1>
+                    <h1>TESTE IMPORT CSV</h1>
+                    <h1>TESTE IMPORT CSV</h1>
+                    <h1>TESTE IMPORT CSV</h1>
+                    <h1>TESTE IMPORT CSV</h1>
+                    <h1>TESTE IMPORT CSV</h1>
+				</div>
+			</div>
+		</div>
+
+
 
 
 {% endblock body %}

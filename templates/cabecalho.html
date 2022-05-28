@@ -1,72 +1,68 @@
 {% load static %}
-<div class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-
-                    <div class="navbar-header">
-                        <button class="navbar-toggle" data-target="#mobile_menu" data-toggle="collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-                        <a href="{% url 'index' %}" class="navbar-brand text-success" >
-                            <img class="navbar-brand" src="{% static 'media/lucro-rural.png' %}" style="width:70px; height: 70px; margin-top: -25px;" alt="">
-                        Lucro Rural
-                        </a>
-                    </div>
-
-                    <div class="navbar-collapse collapse" id="mobile_menu">
-                        <ul class="nav navbar-nav">
-                            <li class="active"><a href="{% url 'index' %}">Home</a></li>
-                            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Sobre nos<span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">About One</a></li>
-                                    <li><a href="#">About Two</a></li>
-                                    <li><a href="#">About Three</a></li>
-                                    <li><a href="#">About Four</a></li>
-                                    <li><a href="#">About Five</a></li>
-                                    <li><a href="#">About Six</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#">Welcome</a></li>
-                            <li><a href="{% url 'all_fornecedores' %}">Fornecedores</a></li>
-                            <li><a href="http://127.0.0.1:8000/api/">Api</a></li>
-                            <li><a href="#">Contato</a></li>
-                        </ul>
-                        <ul class="nav navbar-nav">
-                            <li>
-                                <form action="" class="navbar-form">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <input type="search" name="search" id="" placeholder="Search Anything Here..." class="form-control">
-                                            <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-                                        </div>
-                                    </div>
-                                </form>
-                            </li>
-                        </ul>
-
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> 
-                                {% if request.user.is_authenticated %}
-                                    {{user.username}} <span class="caret"></span>
-                                {% else %}
-                                    Profile <span class="caret"></span>
-                                {% endif %}
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{% url 'profile' %}">Perfil</a></li>
-                                    <li><a href="{% url 'logout' %}">Sair</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-log-in"></span> Login / Sign Up <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{% url 'login' %}">Login</a></li>
-                                    <li><a href="{% url 'register' %}">Cadastrar</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand text-success" href="{% url 'index' %}">
+        <img src="{% static 'media/lucro-rural.png' %}" width="40" height="30" class="d-inline-block align-top" alt="">
+        Lucro Rural
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                    Sobre
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Something else here</a>
                 </div>
-            </div>
-        </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'all_fornecedores' %}">Fornecedor</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://127.0.0.1:8000/api/" target="_blank">Api</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#rodape">Contato</a>
+            </li>
+           
+        </ul>
+        <span class="navbar-text">
+        <ul class="nav navbar-nav navbar-right">
+            {% if request.user.is_authenticated %}
+                <li class="nav-item dropdown active">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                        {{user.username}} 
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'profile' %}">Perfil</a>
+                        <a class="dropdown-item" href="{% url 'logout' %}">Sair</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something</a>
+                    </div>
+                </li>
+            {% endif %}
+            <li class="nav-item dropdown active">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                    Login / Sign Up  
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown"style=" margin-left: -10px;">
+                    {% if request.user.is_authenticated %}
+                        <a class="dropdown-item" href="{% url 'register' %}"  >Cadastrar</a>
+                    {% else %}
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'login' %}">Login</a>
+                    {% endif %}
+                </div>
+            </li>
+        </ul>
+        </span>
     </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</nav>
