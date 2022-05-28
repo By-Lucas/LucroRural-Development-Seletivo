@@ -1,9 +1,17 @@
 from django.shortcuts import render, redirect, HttpResponse
-from django.core.paginator import Paginator, InvalidPage
+from django.core.paginator import Paginator
+from django.contrib.auth.models import User
+from django.urls import reverse_lazy
+from django.views.generic import (
+            ListView, UpdateView,
+            DeleteView, CreateView,TemplateView
+            )
+
 from django.contrib import messages
 from django.contrib.messages import constants
+
 from .models import Fornecedor, Csv
-from .forms import CsvForm
+from .forms import CsvForm, FornecedorForm
 import csv
 
 
@@ -78,3 +86,24 @@ def all_fornecedores(request):
         'posts':posts
     }
     return render(request, 'all_fornecedores.html',context)
+
+def FornecedorCreate(request):
+    form  = FornecedorForm(request.POST)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save() 
+            messages.success(request, 'Novo fornecedor cadastrado com sucesso!')
+            return redirect('all_fornecedores')
+        else:
+            messages.error(request, 'Novo fornecedor nao foi cadastrodo!')
+            return redirect('Create_Fornecedor')
+
+    return render(request, 'fornecedor/fornecedor_form.html',{'form':form})
+
+class FornecedorEdit(UpdateView):
+    template_name = 'fornecedor/FornecedorEdit.html'
+    model: Fornecedor
+    fields=['id', 'nome', 'cnpj', 'telefone']
+
+
+

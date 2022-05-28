@@ -1,15 +1,17 @@
 {% extends 'base.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'fornecedores/bootstrap.css' %}">
 
 {% block body %}
 <div class="container">
-    <br>
-    <h1> IMPORT CSV</h1>
+    <h1> Lista de fornecedores</h1>
+
     <div style="align-items: center; display:flex; justify-content: center;">
         {{ message }}
         <br>
         {% if messages %}
             {% for message in messages %}
-                <div class=" col-md-6 alert {{message.tags}} alert-dismissible fade show" style="display:flex; justify-content: center;">
+                <div class=" col-md-6 alert {{message.tags}} alert-dismissible  show" style="display:flex; justify-content: center;">
                     {{message}}
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -20,16 +22,15 @@
     </div>
 
     <div class="row">
-        <div >
-            <a style="margin:10px; float: right;"  href="{% url 'index' %}" class="btn btn-primary">Index</a>
-        </div>
-        <div >
-            <a style="margin:10px; float: right;"  href="{% url 'export_csv' %}" class="btn btn-warning">Exportar csv</a>
+        <div>
+            <a style="margin:10px; float: left;"  href="{% url 'Create_Fornecedor' %}" class="btn btn-success">Cadastrar fornecedor</a>
         </div>
         <div>
             <button style="margin:10px; float: right;" class="btn btn-success"  data-toggle="modal" data-target="#exampleModal">Importar csv</button>
         </div>
-
+        <div >
+            <a style="margin:10px; float: right;"  href="{% url 'export_csv' %}" class="btn btn-warning">Exportar csv</a>
+        </div>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -37,17 +38,19 @@
                     <th scope="col">Nome</th>
                     <th scope="col">CNPJ</th>
                     <th scope="col">Telefone</th>
-                    <th scope="col">Data Cadastro</th>
+                    <th scope="col">Opções</th>
                 </tr>
             </thead>
             {% for fornecedor in posts.object_list %}
                 <tbody>
                     <tr>
-                        <th scope="row">{{fornecedor.id}}</th>
+                        <th scope="row"><a href="{% url 'FornecedorEdit' %}">{{fornecedor.id}}</a></th>
                         <td>{{fornecedor.nome}}</td>
                         <td>{{fornecedor.cnpj}}</td>
-                        <td>{{fornecedor.telefone}}</td>
-                        <td>{{fornecedor.data_cadastro}}</td>
+                        <td>{{fornecedor.get_telefone}}</td>
+                        <td>
+                            <a href="" class="btn btn-danger" style="justify-content: center; display: flex;">Deletar</a>
+                        </td>
                     </tr>
                 </tbody>
             {% endfor %}
@@ -77,9 +80,9 @@
     </div>
 
     <nav aria-label="Navegação de página exemplo">
-        <ul class="pagination justify-content-center">
+        <ul class="pagination justify-content-center" style="justify-content: center; display: flex;">
             {% if posts.has_previous != 0 %}
-                <li class="page-item ">
+                <li class="page-item">
                     <a class="page-link" href="?page={{ posts.previous_page_number }}">Anterior</a>
                 </li>
             {% else %}
@@ -87,13 +90,9 @@
                     <a class="page-link">Anterior</a>
                 </li>
             {% endif %}
-            
-            <span class="current">
-                <li class="page-item active">
-                    <p class="page-link" href="#">{{ posts.number }} de {{ posts.paginator.num_pages }}</p>
+                <li class="page-item">
+                    <a class="page-link" href="#">{{ posts.number }} de {{ posts.paginator.num_pages }}</a>
                 </li>
-            </span>
-        
             {% if posts.has_next %}
             <li class="page-item ">
                 <a class="page-link" href="?page={{ posts.next_page_number }}">Próxima</a>

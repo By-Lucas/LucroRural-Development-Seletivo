@@ -12,11 +12,41 @@ class Csv(models.Model):
 
 # Create your models here.
 class Fornecedor(models.Model):
-    id = models.UUIDField(primary_key=True) #default=uuid.uuid4, editable=False
+    id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, blank=True) #default=uuid.uuid4, editable=False
     nome = models.CharField(max_length=100, null=False, blank=False)
     cnpj = models.CharField(max_length=18, null=False, blank=False)
-    telefone = models.CharField(max_length=15, null=False, blank=False)
+    telefone = models.CharField(max_length=14, null=False, blank=False)
     data_cadastro = models.DateTimeField(auto_now=True)
+
+    #colocar pontos e traços no CPF
+    def get_cnpj(self):
+        if self.cnpj:
+            cnpj = str(self.cnpj)
+            cnpj_parte_1 = cnpj[0:2]
+            cnpj_parte_2 = cnpj[2:5]
+            cnpj_parte_3 = cnpj[5:8]
+            cnpj_parte_4 = cnpj[8:12]
+            cnpj_parte_5 = cnpj[12:14]
+            cnpj_formatado = f"{cnpj_parte_1}.{cnpj_parte_2}.{cnpj_parte_3}/{cnpj_parte_4}-{cnpj_parte_5}"
+            return cnpj_formatado
+    
+    def get_telefone2(self):
+        if self.telefone:
+            telefone = str(self.telefone)
+            telefone_parte_1 = telefone[0:2]
+            telefone_parte_2 = telefone[2:7]
+            telefone_parte_3 = telefone[7:11]
+            telefone_formatado = f"({telefone_parte_1}) {telefone_parte_2}-telefone_parte_3"
+            return telefone_formatado
+
+
+    def get_telefone(self):
+        if self.telefone:
+            telefone = str(self.telefone)
+            telefone_parte_1 = telefone[0:7]
+            telefone_parte_2 = telefone[12:14]
+            telefone_formatado = f"{telefone_parte_1}### - ##{telefone_parte_2}"
+            return telefone_formatado
 
     class Meta:
         db_table = 'Fornecedor'
