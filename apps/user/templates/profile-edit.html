@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% load bootstrap %}
+
+{% block body %}
+<div class="container" style="min-height: 80vh;">
+    <div style="align-items: center; display:flex; justify-content: center;">
+        {{ message }}
+        <br>
+        {% if messages %}
+            {% for message in messages %}
+                <div class=" col-md-6 alert {{message.tags}} alert-dismissible fade show" style="display:flex; justify-content: center;">
+                    {{message}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <form method="POST" enctype='multipart/form-data'>
+        <div class="card-body p-0">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <h1> Atualizar informações do perfil</h1>
+                    {% csrf_token %}
+                    {{user_form | bootstrap}}
+                    {{profile_form | bootstrap}}
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-3">
+                    <input type="submit" class="btn btn-primary btn-user btn-block" value="Atualizar" />
+                </div>
+                <div class="col-lg-3">
+                    <a href="{% url 'profile' %}" class="btn btn-secondary btn-user btn-block">Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock body %}

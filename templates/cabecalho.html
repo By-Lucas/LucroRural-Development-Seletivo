@@ -1,3 +1,4 @@
+{% load static %}
 <div class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="row">
@@ -5,13 +6,16 @@
 
                     <div class="navbar-header">
                         <button class="navbar-toggle" data-target="#mobile_menu" data-toggle="collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-                        <a href="{% url 'index' %}" class="navbar-brand">LUCRO RURAL</a>
+                        <a href="{% url 'index' %}" class="navbar-brand text-success" >
+                            <img class="navbar-brand" src="{% static 'media/lucro-rural.png' %}" style="width:70px; height: 70px; margin-top: -25px;" alt="">
+                        Lucro Rural
+                        </a>
                     </div>
 
                     <div class="navbar-collapse collapse" id="mobile_menu">
                         <ul class="nav navbar-nav">
                             <li class="active"><a href="{% url 'index' %}">Home</a></li>
-                            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">About Us <span class="caret"></span></a>
+                            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Sobre nos<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="#">About One</a></li>
                                     <li><a href="#">About Two</a></li>
@@ -23,8 +27,8 @@
                             </li>
                             <li><a href="#">Welcome</a></li>
                             <li><a href="{% url 'all_fornecedores' %}">Fornecedores</a></li>
-                            <li><a href="#">Gallery</a></li>
-                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="http://127.0.0.1:8000/api/">Api</a></li>
+                            <li><a href="#">Contato</a></li>
                         </ul>
                         <ul class="nav navbar-nav">
                             <li>
@@ -40,11 +44,22 @@
                         </ul>
 
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+                            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> 
+                                {% if request.user.is_authenticated %}
+                                    {{user.username}} <span class="caret"></span>
+                                {% else %}
+                                    Profile <span class="caret"></span>
+                                {% endif %}
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{% url 'profile' %}">Perfil</a></li>
+                                    <li><a href="{% url 'logout' %}">Sair</a></li>
+                                </ul>
+                            </li>
                             <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-log-in"></span> Login / Sign Up <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">Login</a></li>
-                                    <li><a href="#">Sign Up</a></li>
+                                    <li><a href="{% url 'login' %}">Login</a></li>
+                                    <li><a href="{% url 'register' %}">Cadastrar</a></li>
                                 </ul>
                             </li>
                         </ul>

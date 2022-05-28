@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block titulo %} Cadastre-se {% endblock titulo %}
+
+{% block body %}
+
+<!-- Section: Design Block -->
+<section class="text-center text-lg-start">
+    <style>
+      .cascading-right {
+        margin-right: 0px;
+      }
+  
+      @media (max-width: 991.98px) {
+        .cascading-right {
+          margin-right: 0;
+        }
+      }
+    </style>
+
+    <!-- Jumbotron -->
+    <div class="container py-4" style="min-height: 80vh;">
+      <div style="align-items: center; display:flex; justify-content: center;">
+        {{ message }}
+        <br>
+        {% if messages %}
+            {% for message in messages %}
+                <div class=" col-md-6 alert {{message.tags}} alert-dismissible fade show" style="display:flex; justify-content: center;">
+                    {{message}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+      </div>
+
+      <div class="row g-0 align-items-center">
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <div class="card cascading-right" style="
+              background: hsla(0, 0%, 100%, 0.55);
+              backdrop-filter: blur(30px);
+              ">
+            <div class="card-body p-5 shadow-5 text-center">
+              <h2 class="fw-bold mb-5">Fazer Cadastro</h2>
+              <form method="POST">
+                {% csrf_token %}
+
+                <!-- 2 column grid layout with text inputs for the first and last names -->
+                <div class="row">
+                  <div class="col-md-6 mb-4" style="margin-bottom:15px;">
+                    <div class="form-outline">
+                      <label class="form-label" for="form3Example1">Nome</label>
+                      <input name="first_name" type="text" id="form3Example1" class="form-control" placeholder="Digite seu nome"/>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-4" style="margin-bottom:15px;">
+                    <div class="form-outline">
+                      <label class="form-label" for="form3Example2">Sobrenome</label>
+                      <input name="last_name" type="text" id="form3Example2" class="form-control" placeholder="Digite seu sobrenome" />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Username input -->
+                <div class="form-outline mb-4" style="margin-bottom:15px;">
+                  <label class="form-label" for="form3Example3">Usuário</label>
+                  <input name="username" type="text" id="form3Example3" class="form-control" placeholder="Digite um usuário" />
+                </div>
+
+                <!-- Email input -->
+                <div class="form-outline mb-4" style="margin-bottom:15px;">
+                  <label class="form-label" for="form3Example3">E-mail</label>
+                  <input name="email" type="email" id="form3Example3" class="form-control" placeholder="Digite seu email" />
+                </div>
+
+                <!-- Password input -->
+                <div class="row">
+                    <div class="col-md-6 mb-4" style="margin-bottom:15px;">
+                      <label class="form-label" for="form3Example4">Senha</label>
+                      <input name="password1" type="password" id="form3Example4" class="form-control" placeholder="Digite sua senha" />
+                    </div>
+                    <div class="col-md-6 mb-4" style="margin-bottom:15px;">
+                      <label class="form-label" for="form3Example4">Confirmar senha</label>
+                      <input name="password2" type="password" id="form3Example4" class="form-control" placeholder="Confirme sua senha" />
+                    </div>
+                </div>
+
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-success btn-block mb-4" style="margin: 20px 0px;">
+                  Cadastrar
+                </button>
+                <div class="row">
+                  <div class="col-md-6">
+                    <a href="{% url 'login' %}"  class="btn btn-primary btn-block mb-4 ">
+                      <i class="fa-solid fa-user-plus"></i> Fazer login
+                    </a>
+                  </div>
+                  <div class="col-md-6">
+                    <a href="{% url 'index' %}" class="btn btn-warning btn-block mb-4 ">
+                      <i class="fas fa-unlock-alt"></i> recuperar senha
+                    </a>
+                  </div>
+                  </div>
+              </form>
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <img src="https://sistemarecursoshumanos.com.br/imagens/imagenet-cadastro-de-empresas.png" class="w-100 rounded-4 shadow-4  col-md-10"
+            alt="" />
+        </div>
+      </div>
+    </div>
+    <!-- Jumbotron -->
+  </section>
+  <!-- Section: Design Block -->
+{% endblock body %}

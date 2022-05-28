@@ -1,3 +1,4 @@
+from unicodedata import name
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings

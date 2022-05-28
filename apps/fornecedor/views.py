@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.core.paginator import Paginator
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
@@ -105,5 +105,14 @@ class FornecedorEdit(UpdateView):
     model: Fornecedor
     fields=['id', 'nome', 'cnpj', 'telefone']
 
+class FornecedorDelete(DeleteView):
+    model = Fornecedor
+    success_url = reverse_lazy('all_fornecedores')
 
-
+def FornecedorDelete2(request, id=None):
+    fornecedor_remover = get_object_or_404(FornecedorForm, id=id)
+    if request.method == "POST": 
+        fornecedor_remover.delete()
+        messages.add_message(request, constants.SUCCESS, "Ponto turistico deletado com sucesso") #cliente removido
+        return redirect('index')
+    return render(request, 'cadastro/deletar_ponto_turistico.html',{'fornecedor_remover':fornecedor_remover})

@@ -8,17 +8,31 @@ from fornecedor.views import (
     all_fornecedores, FornecedorEdit,
     FornecedorCreate,
     )
-from . import views
+
+from user.views import (
+    LoginView, LogoutView,
+    SignUpView, profileView,
+    ProfileUpdateView
+)
+from fornecedor.views import FornecedorDelete
+from .views import index
 
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('login/', LoginView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('register/', SignUpView.as_view(), name='register'),
+    path('profile/', profileView.as_view(), name='profile'),
+    path('profile/update/', ProfileUpdateView.as_view(), name='profile_update'),
+
+    path('', index, name='index'),
     path('import/', import_csv, name='import_csv'),
     path('export/', export_csv, name='export_csv'),
     path('upload-file/', all_fornecedores, name='all_fornecedores'),
 
     path('editar-fornecedor/', FornecedorEdit.as_view(), name='FornecedorEdit'),
-    path('criar-fornecedor/', FornecedorCreate, name='Create_Fornecedor')
+    path('criar-fornecedor/', FornecedorCreate, name='Create_Fornecedor'),
+    path('deletar-fornecedor/<str:pk>/', FornecedorDelete.as_view(), name='FornecedorDelete'),
 
 
 ]

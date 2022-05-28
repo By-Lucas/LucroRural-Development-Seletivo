@@ -39,6 +39,7 @@ INSTALLED_APPS +=[
     'multiselectfield',
     'rest_framework',
 
+    'user',
     'fornecedor',
     'notafiscal',
     'contas_a_pagar',

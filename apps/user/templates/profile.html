@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block body %}
+<div class="container" style="min-height: 80vh;">
+    <div style="align-items: center; display:flex; justify-content: center;">
+        {{ message }}
+        <br>
+        {% if messages %}
+            {% for message in messages %}
+                <div class=" col-md-6 alert {{message.tags}} alert-dismissible fade show" style="display:flex; justify-content: center;">
+                    {{message}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <form method="POST">
+        <div class="card-body p-0">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <h1> Informações do seu perfil</h1>
+                    <div class="row">
+                        <div class="col-lg-3 my-5">
+                            <img src="{{ user.profile.imagem_perfil.url }}" class="rounded float-right" width="250px">
+                        </div>
+                        <div class="card o-hidden border-0 shadow-lg my-5 col-lg-8">
+                            <div class="card-body">
+                                <h2>{{user.first_name}} {{user.last_name}} </h2>
+                                <p><strong>Email: </strong> {{user.email}} </p>
+                                <p><strong>Idade: </strong> {{user.profile.idade}} anos</p>
+                                <p><strong>Nascimento: </strong> {{user.profile.data_nascimento}}</p>
+                                <p><strong>Cidade: </strong> {{user.profile.cidade}} </p>
+                                <p><strong>Endereço: </strong> {{user.profile.endereco}} </p>
+                                <p><strong>Cadastrado em: </strong> {{user.profile.data_cadastro}} </p>
+                                <div class="row align-items-end">
+                                    <div class="col-lg-4">
+                                        <a href="{%url 'profile_update' %}" class="btn btn-warning btn-user btn-block">Editar perfil</a>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="text-left">
+                                            <a class="btn btn-danger btn-user btn-block" href="{% url 'index' %}">Alterar senha</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 ">
+                                        <div class="text-left">
+                                            <a class="btn btn-primary btn-user btn-block" href="{% url 'index' %}">Voltar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock body %}
