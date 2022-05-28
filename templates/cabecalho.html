@@ -1,5 +1,6 @@
 {% load static %}
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ffffff;">
     <a class="navbar-brand text-success" href="{% url 'index' %}">
         <img src="{% static 'media/lucro-rural.png' %}" width="40" height="30" class="d-inline-block align-top" alt="">
         Lucro Rural
@@ -10,7 +11,7 @@
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
@@ -23,16 +24,20 @@
                     <a class="dropdown-item" href="#">Something else here</a>
                 </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'all_fornecedores' %}">Fornecedor</a>
-            </li>
+            {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'all_fornecedores' %}">Fornecedor</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'all_fornecedores' %}">Notas fiscais</a>
+                </li>
+            {% endif %}
             <li class="nav-item">
                 <a class="nav-link" href="http://127.0.0.1:8000/api/" target="_blank">Api</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#rodape">Contato</a>
             </li>
-           
         </ul>
         <span class="navbar-text">
         <ul class="nav navbar-nav navbar-right">
@@ -40,12 +45,12 @@
                 <li class="nav-item dropdown active">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
                         {{user.username}} 
+                        <i class="fa-solid fa-circle" style="color:rgb(19, 209, 19) ;" aria-hidden="true"></i>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{% url 'profile' %}">Perfil</a>
-                        <a class="dropdown-item" href="{% url 'logout' %}">Sair</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something</a>
+                        <a class="dropdown-item" href="{% url 'logout' %}">Sair</a>
                     </div>
                 </li>
             {% endif %}

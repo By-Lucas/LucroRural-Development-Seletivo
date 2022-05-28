@@ -38,6 +38,7 @@ INSTALLED_APPS +=[
     'bootstrapform',
     'multiselectfield',
     'rest_framework',
+    'fontawesomefree',
 
     'user',
     'fornecedor',

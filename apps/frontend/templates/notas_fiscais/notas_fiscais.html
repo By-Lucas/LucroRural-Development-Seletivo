@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %}
+<link href="{% static 'fornecedores/css/sb-admin-2.min.css' %}" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'fornecedores/bootstrap.css' %}">
+
+{% block head %}
+<link href="{% static 'fornecedores/css/estilo.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1> Lista de fornecedores</h1>
+
+    <div style="align-items: center; display:flex; justify-content: center;">
+        {{ message }}
+        <br>
+        {% if messages %}
+            {% for message in messages %}
+                <div class=" col-md-6 alert {{message.tags}} alert-dismissible  show" style="display:flex; justify-content: center;">
+                    {{message}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <div class="row">
+        <div>
+            <a style="margin:10px; float: left;"  href="{% url 'Create_Fornecedor' %}" class="btn btn-success">Novo fornecedor</a>
+        </div>
+        <div>
+            <button style="margin:10px; float: right;" class="btn btn-success"  data-toggle="modal" data-target="#exampleModal">Importar csv</button>
+        </div>
+        <div >
+            <a style="margin:10px; float: right;"  href="{% url 'export_csv' %}" class="btn btn-warning">Exportar csv</a>
+        </div>
+        <div class="table table-responsive">
+            <table class="table  table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">CNPJ</th>
+                        <th scope="col">Telefone</th>
+                        <th scope="col">Opções</th>
+                    </tr>
+                </thead>
+                {% for fornecedor in posts.object_list %}
+                    <tbody>
+                        <tr>
+                            <th scope="row tabela"><a href="{% url 'FornecedorEdit' %}">{{fornecedor.id}}</a></th>
+                            <td class="tabela">{{fornecedor.nome}}</td>
+                            <td>{{fornecedor.cnpj}}</td>
+                            {% if request.user.groups.all.0.name == 'admin' or request.user.groups.all.0.name == 'dono' %}
+                                <td>{{fornecedor.telefone}}</td>
+                            {% else %}
+                                <td>{{fornecedor.get_telefone}}</td>
+                            {% endif %}
+                            <td>
+                                <a href="{% url 'FornecedorDelete' fornecedor.id %}" class="btn btn-danger" style="justify-content: center; display: flex;">Deletar</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Importar arquivo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        {% csrf_token %}
+                        {{form}}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Fazer upload</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <nav aria-label="Navegação de página exemplo">
+        <ul class="pagination justify-content-center" style="justify-content: center; display: flex;">
+            {% if posts.has_previous != 0 %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ posts.previous_page_number }}">Anterior</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link">Anterior</a>
+                </li>
+            {% endif %}
+                <li class="page-item">
+                    <a class="page-link" href="#">{{ posts.number }} de {{ posts.paginator.num_pages }}</a>
+                </li>
+            {% if posts.has_next %}
+            <li class="page-item ">
+                <a class="page-link" href="?page={{ posts.next_page_number }}">Próxima</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+{% endblock body %}

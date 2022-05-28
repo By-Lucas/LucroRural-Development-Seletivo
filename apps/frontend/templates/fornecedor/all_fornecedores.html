@@ -53,7 +53,11 @@
                             <th scope="row tabela"><a href="{% url 'FornecedorEdit' %}">{{fornecedor.id}}</a></th>
                             <td class="tabela">{{fornecedor.nome}}</td>
                             <td>{{fornecedor.cnpj}}</td>
-                            <td>{{fornecedor.get_telefone}}</td>
+                            {% if request.user.groups.all.0.name == 'admin' or request.user.groups.all.0.name == 'dono' %}
+                                <td>{{fornecedor.telefone}}</td>
+                            {% else %}
+                                <td>{{fornecedor.get_telefone}}</td>
+                            {% endif %}
                             <td>
                                 <a href="{% url 'FornecedorDelete' fornecedor.id %}" class="btn btn-danger" style="justify-content: center; display: flex;">Deletar</a>
                             </td>

@@ -85,7 +85,7 @@ def all_fornecedores(request):
         'form':form,
         'posts':posts
     }
-    return render(request, 'all_fornecedores.html',context)
+    return render(request, 'fornecedor/all_fornecedores.html',context)
 
 def FornecedorCreate(request):
     form  = FornecedorForm(request.POST)

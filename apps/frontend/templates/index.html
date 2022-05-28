@@ -2,15 +2,8 @@
 {% load static %}
 
 {% block head %}
-<link rel="stylesheet" href="{% static 'index/carousel/carousel.css' %}">
-<script src="{% static 'index/carousel/carousel.js' %}"></script>
+<link rel="stylesheet" href="{% static 'index/style.css' %}">
 {% endblock %}
-
-<style>
-    .margem{
-        margin-top: -55px;
-    }
-</style>
 
 {% block body %}
 <div class="container">
@@ -29,23 +22,21 @@
         {% endif %}
     </div>
 </div>
-    <!--  carousel  -->
 
-
-		<div class="container-fluid  img-fundo">
-			<div class="row justify-content-center">
-				<div class="col-sm text-left">
-                    <h1>TESTE IMPORT CSV</h1>
-                    <h1>TESTE IMPORT CSV</h1>
-                    <h1>TESTE IMPORT CSV</h1>
-                    <h1>TESTE IMPORT CSV</h1>
-                    <h1>TESTE IMPORT CSV</h1>
-                    <h1>TESTE IMPORT CSV</h1>
-                    <h1>TESTE IMPORT CSV</h1>
-                    <h1>TESTE IMPORT CSV</h1>
-				</div>
-			</div>
-		</div>
+<div class="container-fluid  img-fundo">
+    <div class="row justify-content-center">
+        <div class="col-sm info-index">
+            <h1>Projeto para seletivo<br>
+                <strong class="display-2">Luro Rural</strong><br>
+                Super importante.
+            </h1>
+            <h2>Somos especialistas em gestão <br>
+                financeira agro e na rentabilidade <br>
+                da sua propriedade.</h2>
+            <a class="btn btn-warning" href="#"> <strong> Site oficial - Lucro Rural</strong></a>
+        </div>
+    </div>
+</div>
 
 
 

@@ -1,0 +1,43 @@
+.img-fundo{
+    background: url(/static/media/fundo.jpg) no-repeat center;;
+    width: 100%;
+    margin-top: -25px;
+    margin-bottom: 25px;
+}
+.img-fundo img{
+    position:relative;
+    height: 70vh;
+}
+
+.margem{
+    margin-top: -55px;
+}
+
+.info-index{
+    margin: 150px 70px;
+    background: transparent;
+    
+}
+
+.info-index h1{
+    color: #ffffff;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.info-index h2{
+    color: #ffffff;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 20px;
+}
+
+.info-index a{
+    font-size: 30px;
+    padding: 5px 20px;
+    color: #ffffff;
+    background-color: #e7a11f;
+    border: none;
+    border-radius: 10px;
+}
+.info-index a:hover{
+    background-color: #d39219;
+    color: #ffffff;
+}
