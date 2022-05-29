@@ -50,7 +50,7 @@
                 {% for fornecedor in posts.object_list %}
                     <tbody>
                         <tr>
-                            <th scope="row tabela"><a href="{% url 'FornecedorEdit' %}">{{fornecedor.id}}</a></th>
+                            <th scope="row tabela"><a href="{% url 'FornecedorEdit' fornecedor.id %}">{{fornecedor.id}}</a></th>
                             <td class="tabela">{{fornecedor.nome}}</td>
                             <td>{{fornecedor.cnpj}}</td>
                             {% if request.user.groups.all.0.name == 'admin' or request.user.groups.all.0.name == 'dono' %}

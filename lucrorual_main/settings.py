@@ -47,6 +47,11 @@ INSTALLED_APPS +=[
     'frontend'
 ]
 
+#DATE_FORMAT = "%d%m/%Y"
+
+DATE_FORMAT = '%Y-%m-%d'
+DATE_INPUT_FORMATS  = ['%Y-%m-%d']
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

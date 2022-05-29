@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% load bootstrap %}
+
+{% block body %}
+
+<section class="text-lg-start">
+    <style>
+      .cascading-right {
+        margin-right: 0px;
+      }
+  
+      @media (max-width: 991.98px) {
+        .cascading-right {
+          margin-right: 0;
+        }
+      }
+    </style>
+
+    <!-- Jumbotron -->
+    <div class="container py-4" style="min-height: 80vh;">
+      <div style="align-items: center; display:flex; justify-content: center;">
+        {{ message }}
+        <br>
+        {% if messages %}
+            {% for message in messages %}
+                <div class=" col-md-6 alert {{message.tags}} alert-dismissible fade show" style="display:flex; justify-content: center;">
+                    {{message}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+      </div>
+
+      <div class="row">
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <div class="card cascading-right" style="
+              background: hsla(0, 0%, 100%, 0.55);
+              backdrop-filter: blur(30px);
+              ">
+            <div class="card-body p-5 shadow-5 text-center">
+              <h2 class="fw-bold mb-5">Cadastar fornecedor</h2>
+              <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="control-label  " for="id_nome">Nome</label>
+                    <div class=" ">
+                        <input type="text" name="nome" maxlength="100" class=" form-control" required="" id="id_nome" placeholder="Digite seu nome">
+                        <span class="help-block ">* Este campo é obrigatório.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label  " for="cpf_cnpj">CNPJ</label>
+                    <div class=" ">
+                        <input type="text" name="cnpj" maxlength="18" class="form-control cnpj" required="" placeholder="00.000.000/0000-00" id="cpf_cnpj">
+                        <span class="help-block ">* Este campo é obrigatório.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label  " for="id_telefone">Telefone</label>
+                    <div class=" ">
+                        <input type="text" name="telefone" maxlength="14" class="form-control telefone" required="" placeholder="(00)00000-0000" id="id_telefone">
+                        <span class="help-block ">* Este campo é obrigatório.</span>
+                    </div>
+                </div>
+                <br>
+                <button class="btn btn-success" type="submit" style="margin-bottom: 15px;">Cadastrar fornecedor</button>
+            </form>
+                <div class="row">
+                    <div class="col-md-6">
+                        <a href="{% url 'index' %}"  class="btn btn-primary btn-block mb-4 ">
+                            <i class="fas fa-sign-in-alt"></i></i> Home
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="{% url 'all_fornecedores' %}" class="btn btn-warning btn-block mb-4 ">
+                            <i class="fas fa-unlock-alt"></i> Fornecedores
+                        </a>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <img src="https://blog.gazinatacado.com.br/wp-content/uploads/2016/11/como-fidelizar-clientes-41.png?x47959" class="w-100 rounded-4 shadow-4  col-md-10"
+            alt="" />
+        </div>
+      </div>
+    </div>
+    <!-- Jumbotron -->
+  </section>
+  <!-- Section: Design Block -->
+
+
+{% endblock body %}

@@ -10,10 +10,10 @@ class NotaFiscalForm(forms.ModelForm):
     class Meta:
         model = Nota_Fiscal
         fields = [
-            'numero_da_conta', 
+            'numero_da_nota', 
             'fornecedor', 
             'nome_produto', 
             'categoria', 
-            'quantidade,',
+            'quantidade',
             'valor_total'
             ]

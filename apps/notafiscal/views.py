@@ -1,3 +1,4 @@
+from dataclasses import replace
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.core.paginator import Paginator
 from django.contrib.auth.models import User
@@ -10,47 +11,57 @@ from django.views.generic import (
 from django.contrib import messages
 from django.contrib.messages import constants
 
-from .models import Fornecedor, Csv_notas
+from .models import Nota_Fiscal, Csv_notas
 from .forms import CsvNotaForm, NotaFiscalForm
 import csv
 
 
-
-def all_fornecedores(request):
-    fornecedor = Fornecedor.objects.all().order_by('nome')
-    form = CsvForm(request.POST, request.FILES or None)
-    paginator = Paginator(fornecedor, 9)
+def notas_fiscais(request):
+    nota_fiscal = Nota_Fiscal.objects.all().order_by('nome_produto')
+    form = CsvNotaForm(request.POST, request.FILES or None)
+    paginator = Paginator(nota_fiscal, 9)
     page = request.GET.get('page')
     posts = paginator.get_page(page)
     if form.is_valid():
         form.save()
-        form = CsvForm()
-        obj = Csv.objects.get(activated=False)
-        with open (obj.file_name.path, 'r') as f:
-            reader = csv.reader(f)
-            for i, row in enumerate(reader):
-                if i == 0:
-                    pass
-                else:
-                    import_fornecedores = Fornecedor.objects.update_or_create(
-                        id=row[0],
-                        nome=row[1],
-                        cnpj=row[2],
-                        telefone=row[3]
-                    )
+        form = CsvNotaForm()
+        obj = Csv_notas.objects.get(activated=False)
+        fornecedores = []
+        with open(obj.file_name.path, "r") as csv_file:
+            data = list(csv.reader(csv_file, delimiter=";"))
+            for rows in data[1:]:
+                fornecedores.append(rows)
+                #print(fornecedores["numero_nota"])
+            for row in fornecedores:
+                data = row[2]
+                n1 = f'{data[8:10]}/{data[5:7]}/{data[0:4]}'
+                #data = row[2]
+                #n1 = f'{data[8:10]}{data[5:7]}{data[0:4]}'
+                print(n1)
+                if len(row) > 0:
+                    import_NotaFiscal = Nota_Fiscal.objects.update_or_create(
+                            numero_da_nota=row[0],
+                            fornecedor=row[1],
+                            data_emissao_nota=row[2],
+                            nome_produto=row[3],
+                            categoria=row[4],
+                            quantidade=row[5],
+                            valor_total=row[6])
+
             obj.activated = True
             obj.save()
             messages.add_message(request, constants.SUCCESS, 'Importação feita com sucesso')
-            return redirect('/')
+            return redirect('notas_fiscais')
     context = {
-        'fornecedor':fornecedor,
+        'nota_fiscal':nota_fiscal,
         'form':form,
         'posts':posts
     }
-    return render(request, 'all_fornecedores.html',context)
+    return render(request, 'notafiscal/notas_fiscais.html',context)
 
-def FornecedorCreate(request):
-    form  = FornecedorForm(request.POST)
+
+def NotasFiscaisCreate(request):
+    form  = NotaFiscalForm(request.POST)
     if request.method == 'POST':
         if form.is_valid():
             form.save() 
@@ -59,5 +70,4 @@ def FornecedorCreate(request):
         else:
             messages.error(request, 'Novo fornecedor nao foi cadastrodo!')
             return redirect('Create_Fornecedor')
-
-    return render(request, 'fornecedor/fornecedor_form.html',{'form':form})
+    return render(request, 'notafiscal/notasfiscais_form.html',{'form':form})

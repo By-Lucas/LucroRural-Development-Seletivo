@@ -6,15 +6,17 @@ from django.urls import path, include
 from fornecedor.views import (
     import_csv, export_csv, 
     all_fornecedores, FornecedorEdit,
-    FornecedorCreate,
+    FornecedorCreate, FornecedorDelete
     )
+
+from notafiscal.views import notas_fiscais, NotasFiscaisCreate
 
 from user.views import (
     LoginView, LogoutView,
     SignUpView, profileView,
     ProfileUpdateView
 )
-from fornecedor.views import FornecedorDelete
+
 from .views import index
 
 
@@ -30,9 +32,12 @@ urlpatterns = [
     path('export/', export_csv, name='export_csv'),
     path('upload-file/', all_fornecedores, name='all_fornecedores'),
 
-    path('editar-fornecedor/', FornecedorEdit.as_view(), name='FornecedorEdit'),
+    path('editar-fornecedor/<str:pk>/', FornecedorEdit.as_view(), name='FornecedorEdit'),
     path('criar-fornecedor/', FornecedorCreate, name='Create_Fornecedor'),
     path('deletar-fornecedor/<str:pk>/', FornecedorDelete.as_view(), name='FornecedorDelete'),
+
+    path('notas-fiscais/', notas_fiscais, name='notas_fiscais'),
+    path('cadastrar-fiscais/', NotasFiscaisCreate, name='NotasFiscaisCreate'),
 
 
 ]

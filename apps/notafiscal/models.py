@@ -15,9 +15,9 @@ class Csv_notas(models.Model):
 
 class Nota_Fiscal(models.Model):
     id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
-    numero_da_conta = models.CharField(max_length=10, null=False, blank=False)
-    fornecedor = models.ManyToManyField(Fornecedor)
-    data_emissao_nota = models.DateTimeField(auto_now=True, editable=True)
+    numero_da_nota = models.CharField(max_length=10, null=False, blank=False)
+    fornecedor = models.CharField(max_length=100, null=False, blank=False)
+    data_emissao_nota = models.DateField(default='%Y-%m-%d')
     nome_produto = models.CharField(max_length=50, null=False, blank=False)
     categoria = models.CharField(max_length=20, null=False, blank=False)
     quantidade = models.DecimalField(max_digits=10, decimal_places=2, null=False, blank=False)
