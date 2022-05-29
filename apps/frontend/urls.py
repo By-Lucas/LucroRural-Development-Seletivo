@@ -8,8 +8,9 @@ from fornecedor.views import (
     all_fornecedores, FornecedorEdit,
     FornecedorCreate, FornecedorDelete
     )
-
-from notafiscal.views import notas_fiscais, NotasFiscaisCreate
+from notafiscal.views import (
+    notas_fiscais, NotasFiscaisCreate, 
+    export_notas_csv)
 
 from user.views import (
     LoginView, LogoutView,
@@ -38,6 +39,7 @@ urlpatterns = [
 
     path('notas-fiscais/', notas_fiscais, name='notas_fiscais'),
     path('cadastrar-fiscais/', NotasFiscaisCreate, name='NotasFiscaisCreate'),
+    path('export-fiscais/', export_notas_csv, name='export_notas_csv'),
 
 
 ]

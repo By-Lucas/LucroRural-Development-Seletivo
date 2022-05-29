@@ -59,6 +59,17 @@ def notas_fiscais(request):
     }
     return render(request, 'notafiscal/notas_fiscais.html',context)
 
+def export_notas_csv(request):
+    queryset = Nota_Fiscal.objects.all()
+    options = Nota_Fiscal._meta
+    fields = [field.name for field in options.fields]
+    responde = HttpResponse(content_type='text/csv')
+    responde['Content-Disposition'] = "atachment; filename:'fornecedor.csv'"
+    write = csv.writer(responde)
+    write.writerow([options.get_field(field).verbose_name for field in fields])
+    for obj in queryset:
+        write.writerow([getattr(obj, field) for field in fields])
+    return responde
 
 def NotasFiscaisCreate(request):
     form  = NotaFiscalForm(request.POST)
