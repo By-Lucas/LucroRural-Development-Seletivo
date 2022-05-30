@@ -26,14 +26,14 @@
     </div>
 
     <div class="row">
-        <div>
-            <a style="margin:10px; float: left;"  href="{% url 'NotasFiscaisCreate' %}" class="btn btn-success">Novo fornecedor</a>
+        <div class="col-sm">
+            <a style="margin:10px 0px; float: left;"  href="{% url 'NotasFiscaisCreate' %}" class="btn btn-success col-md-6">Nova nota fiscal</a>
         </div>
-        <div>
-            <button style="margin:10px; float: right;" class="btn btn-success"  data-toggle="modal" data-target="#exampleModal">Importar csv</button>
+        <div class="col col-md-3">
+            <button style="margin:10px 0px; float: right;" class="btn btn-primary col-md-12"  data-toggle="modal" data-target="#exampleModal">Importar nota fiscal</button>
         </div>
-        <div >
-            <a style="margin:10px; float: right;"  href="{% url 'export_notas_csv' %}" class="btn btn-warning">Exportar csv</a>
+        <div class="col col-md-3">
+            <a style="margin:10px 0px; float: right;"  href="{% url 'export_notas_csv' %}" class="btn btn-warning col-md-12">Exportar nota fiscal</a>
         </div>
         <div class="table table-responsive">
             <table class="table  table-bordered">
@@ -46,26 +46,26 @@
                         <th scope="col">Categoria</th>
                         <th scope="col">Quantidade</th>
                         <th scope="col">Total R$</th>
-                        <th scope="col">Opções</th>
+                        {% if request.user.groups.all.0.name == 'admin' or request.user.groups.all.0.name == 'dono' %}
+                            <th scope="col">Opções</th>
+                        {% endif %}
                     </tr>
                 </thead>
                 {% for nota_fiscal in posts.object_list %}
                     <tbody>
                         <tr>
-                            
                             <th scope="row tabela"><a href="{% url 'FornecedorEdit' nota_fiscal.id %}">{{nota_fiscal.numero_da_nota}}</a></th>
                             <td>{{nota_fiscal.fornecedor}}</td>
-                            {% if request.user.groups.all.0.name == 'admin' or request.user.groups.all.0.name == 'dono' %}
-                                
                                 <td>{{nota_fiscal.nome_produto}}</td>
                                 <td>{{nota_fiscal.data_emissao_nota}}</td>
                                 <td>{{nota_fiscal.categoria}}</td>
                                 <td>{{nota_fiscal.quantidade}}</td>
                                 <td>{{nota_fiscal.valor_total}}</td>
-                            {% endif %}
+                            {% if request.user.groups.all.0.name == 'admin' or request.user.groups.all.0.name == 'dono' %}
                             <td>
                                 <a href="{% url 'FornecedorDelete' nota_fiscal.id %}" class="btn btn-danger" style="justify-content: center; display: flex;">Deletar</a>
                             </td>
+                            {% endif %}
                         </tr>
                     </tbody>
                 {% endfor %}

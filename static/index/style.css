@@ -6,15 +6,14 @@
 }
 .img-fundo img{
     position:relative;
-    height: 70vh;
 }
 
 .margem{
-    margin-top: -55px;
+    margin-top: 0;
 }
 
 .info-index{
-    margin: 150px 70px;
+    margin: 0;
     background: transparent;
     
 }
@@ -23,6 +22,10 @@
     color: #ffffff;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
+.margem-h1{
+    padding-top: 50px;
+}
+
 .info-index h2{
     color: #ffffff;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;

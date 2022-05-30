@@ -2,6 +2,7 @@
 {% load static %}
 
 
+
 {% block body %}
 <div class="container" style="min-height: 80vh;">
     <div style="align-items: center; display:flex; justify-content: center;">
@@ -10,7 +11,7 @@
         {% if messages %}
             {% for message in messages %}
                 <div class=" col-md-6 alert {{message.tags}} alert-dismissible fade show" style="display:flex; justify-content: center;">
-                    {{message}}
+                    {{ message }}
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -42,7 +43,7 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="text-left">
-                                            <a class="btn btn-danger btn-user btn-block" href="{% url 'index' %}">Alterar senha</a>
+                                            <a class="btn btn-danger btn-user btn-block" href="javascript:embreve()">Alterar senha</a>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 ">
@@ -59,4 +60,11 @@
         </div>
     </form>
 </div>
+
+<script language=javascript type="text/javascript">
+    function embreve(){
+        alerta = alert("Será adcionado em breve")
+    }
+</script>
+
 {% endblock body %}

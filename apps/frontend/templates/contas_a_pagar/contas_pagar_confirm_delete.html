@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load bootstrap %} <!--MODELO PEGO NO SITE = https://django-crispy-forms.readthedocs.io/en/latest/filters.html-->
+{% block body %}
+<div class="container" style="min-height: 80vh; margin-top: 50px;">
+    <h1>Tem certeza que deseja deletar este ponta conta?</h1><br>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="text-center">
+        <input type="submit" class="btn btn-danger col-md-3" value="Deletar" style="margin-right: 20px;">
+        <a href="{% url 'contas_pagar_list' %}" class="btn btn-primary col-md-3">Voltar</a>
+        </div>
+    </form>
+</div>
+</div>
+{% endblock %}

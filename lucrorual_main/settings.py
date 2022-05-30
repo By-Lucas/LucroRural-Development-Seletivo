@@ -39,6 +39,7 @@ INSTALLED_APPS +=[
     'multiselectfield',
     'rest_framework',
     'fontawesomefree',
+    'import_export', # Import Export csv | pip install django-import-export
 
     'user',
     'fornecedor',
@@ -46,6 +47,8 @@ INSTALLED_APPS +=[
     'contas_a_pagar',
     'frontend'
 ]
+
+IMPORT_EXPORT_USE_TRANSACTIONS = True # Import Export csv | pip install django-import-export
 
 #DATE_FORMAT = "%d%m/%Y"
 

@@ -12,28 +12,25 @@
         <br>
         {% if messages %}
             {% for message in messages %}
-                <div class=" col-md-6 alert {{message.tags}} alert-dismissible fade show" style="display:flex; justify-content: center;">
-                    {{message}}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+            <script>alert("{{ message }}")</script>
             {% endfor %}
         {% endif %}
     </div>
 </div>
 
-<div class="container-fluid  img-fundo">
-    <div class="row justify-content-center">
+<div class="container-fluid  img-fundo ">
+    <div class="container justify-content-center col-md-10"><!--justify-content-center -->
         <div class="col-sm info-index">
-            <h1>Projeto para seletivo<br>
-                <strong class="display-2">Luro Rural</strong><br>
+            <h1 class="margem-h1">Projeto para seletivo<br>
+                <strong class="display-3">Luro Rural</strong><br>
                 Super importante.
             </h1>
-            <h2>Somos especialistas em gestão <br>
+            <h2 >Somos especialistas em gestão <br>
                 financeira agro e na rentabilidade <br>
                 da sua propriedade.</h2>
-            <a class="btn btn-warning" href="#"> <strong> Site oficial - Lucro Rural</strong></a>
+            <a style="margin-bottom: 70px;" class="btn btn-warning" href="https://lucrorural.com.br/" target="_blank">
+                <strong> Site oficial - Lucro Rural</strong>
+            </a>
         </div>
     </div>
 </div>

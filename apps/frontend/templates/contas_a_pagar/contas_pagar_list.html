@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+{% block body %}
+<div class="container">
+    <div style="align-items: center; display:flex; justify-content: center;">
+        {{ message }}
+        <br>
+        {% if messages %}
+            {% for message in messages %}
+                <div class=" col-md-6 alert {{message.tags}} alert-dismissible fade show" style="display:flex; justify-content: center;">
+                    {{message}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+      </div>
+    <div class="row">
+      <div class="col-md" style="align-items: center; padding-top: 15px;">
+        <h1>Contas a pagar</1>
+    </div>
+    <div class="col-md" style="align-items: center; padding-top: 15px;">
+        <a href="{% url 'ContasPagarCreate' %}" class="btn btn-outline-success" style="float: right; font-size: 18px;"><i class="fa-solid fa-file-invoice-dollar"></i> Nova conta</a>
+    </div>
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Fornecedor</th>
+                <th scope="col">Data vencimento</th>
+                <th scope="col">Status</th>
+                <th scope="col">ID das notas</th>
+                {% if request.user.groups.all.0.name == 'admin' or request.user.groups.all.0.name == 'dono' %}
+                    <th scope="col">Opcções</th>
+                {% endif %}
+              </tr>
+            </thead>
+
+            <tbody>
+                {% for contas_Pagar in contas  %}
+                    <tr>
+                        <td  scope="row"><a href="{% url 'ContasUpdateView' contas_Pagar.pk %}">{{ contas_Pagar.fornecedor }}</a></td>
+                        <td>{{ contas_Pagar.data_vencimento }}</td>
+                        <td>{{ contas_Pagar.pago }}</td>
+                        <td>{% for contas in contas_Pagar.ids_notas_fiscais.all %}{{ contas.id }}{% endfor %}</td>
+                        {% if request.user.groups.all.0.name == 'admin' or request.user.groups.all.0.name == 'dono' %}
+                        <td>
+                            <a class="btn btn-danger" href="{% url 'ContasPagarDelete' contas_Pagar.id %}">Delete</a>
+                        </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <nav aria-label="Navegação de página exemplo">
+        <ul class="pagination justify-content-center" style="justify-content: center; display: flex;">
+            {% if posts.has_previous != 0 %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ posts.previous_page_number }}">Anterior</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link">Anterior</a>
+                </li>
+            {% endif %}
+                <li class="page-item">
+                    <a class="page-link" href="#">{{ posts.number }} de {{ posts.paginator.num_pages }}</a>
+                </li>
+            {% if posts.has_next %}
+            <li class="page-item ">
+                <a class="page-link" href="?page={{ posts.next_page_number }}">Próxima</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+    
+{% endblock body %}

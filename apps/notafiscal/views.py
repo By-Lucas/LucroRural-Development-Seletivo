@@ -27,27 +27,23 @@ def notas_fiscais(request):
         form = CsvNotaForm()
         obj = Csv_notas.objects.get(activated=False)
         fornecedores = []
-        with open(obj.file_name.path, "r") as csv_file:
+        with open(obj.file_name.path, "r", encoding="utf-8") as csv_file:
             data = list(csv.reader(csv_file, delimiter=";"))
             for rows in data[1:]:
                 fornecedores.append(rows)
-                #print(fornecedores["numero_nota"])
             for row in fornecedores:
                 data = row[2]
                 n1 = f'{data[8:10]}/{data[5:7]}/{data[0:4]}'
-                #data = row[2]
-                #n1 = f'{data[8:10]}{data[5:7]}{data[0:4]}'
-                print(n1)
                 if len(row) > 0:
-                    import_NotaFiscal = Nota_Fiscal.objects.update_or_create(
-                            numero_da_nota=row[0],
-                            fornecedor=row[1],
-                            data_emissao_nota=row[2],
-                            nome_produto=row[3],
-                            categoria=row[4],
-                            quantidade=row[5],
-                            valor_total=row[6])
-
+                    Nota_Fiscal.objects.update_or_create(
+                        numero_da_nota=row[0],
+                        fornecedor=row[1],
+                        data_emissao_nota=row[2],
+                        nome_produto=row[3],
+                        categoria=row[4],
+                        quantidade=row[5],
+                        valor_total=row[6]
+                        )
             obj.activated = True
             obj.save()
             messages.add_message(request, constants.SUCCESS, 'Importação feita com sucesso')

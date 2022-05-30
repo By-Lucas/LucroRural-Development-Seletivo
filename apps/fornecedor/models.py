@@ -12,10 +12,10 @@ class Csv(models.Model):
 
 
 class Fornecedor(models.Model):
-    id = models.UUIDField(primary_key=True, unique=True, default=uuid.uuid4, blank=True) #default=uuid.uuid4, editable=False
-    nome = models.CharField(max_length=100, null=False, blank=False)
-    cnpj = models.CharField(max_length=18, null=False, blank=False)
-    telefone = models.CharField(max_length=14, null=False, blank=False)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
+    nome = models.CharField(max_length=100, null=False, blank=False, db_column='nome')
+    cnpj = models.CharField(max_length=18, null=False, blank=False, db_column='cnpj')
+    telefone = models.CharField(max_length=14, null=False, blank=False, db_column='telefone')
     data_cadastro = models.DateTimeField(auto_now=True)
 
     #colocar pontos e traços no CPF
