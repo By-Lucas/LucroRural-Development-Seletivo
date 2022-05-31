@@ -42,8 +42,6 @@ class Fornecedor(models.Model):
         db_table = 'Fornecedor'
         verbose_name  = 'Fornecedor'
         verbose_name_plural = 'Fornecedores'
-        managed = True
-        #unique_together = ('id', 'pago') Tabelas com id ou informações unicas
     
     def __str__(self) -> str:
         return self.nome

@@ -1,7 +1,9 @@
+from pyexpat import model
 from django.shortcuts import render, redirect, HttpResponse
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.urls import reverse_lazy
+from django.views.generic import UpdateView, DeleteView
 
 from django.contrib import messages
 from django.contrib.messages import constants
@@ -84,3 +86,14 @@ def NotasFiscaisCreate(request):
             messages.error(request, 'Novo fornecedor nao foi cadastrodo!')
             return redirect('Create_Fornecedor')
     return render(request, 'notafiscal/notasfiscais_form.html',{'form':form})
+
+
+class NotaUpdateView(UpdateView):
+    template_name = 'notafiscal/notafiscal_edit.html' 
+    model: Nota_Fiscal
+    fields = [
+            'id','numero_da_nota', 'fornecedor', 
+            'data_emissao_nota', 'nome_produto', 
+            'categoria', 'quantidade', 'valor_total'
+            ]
+    success_url = reverse_lazy('notas_fiscais') 

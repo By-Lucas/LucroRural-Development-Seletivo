@@ -11,9 +11,9 @@ from apps.fornecedor.api.viewsets import Fornecedor_viresets
 from apps.notafiscal.api.viewsets import Nota_Fiscal_viewsets
 # ROTAS
 router = routers.DefaultRouter()
-router.register(r'contas_a_pagar', Contas_Pagar_viewsets)
-router.register(r'fornecedor', Fornecedor_viresets)
-router.register(r'notafiscal', Nota_Fiscal_viewsets)
+router.register(r'contas_a_pagar', Contas_Pagar_viewsets, basename='conta_a_pagar')
+router.register(r'fornecedor', Fornecedor_viresets, basename='fornecedor')
+router.register(r'notafiscal', Nota_Fiscal_viewsets, basename='notafiscal')
 
 urlpatterns = [
     path('api/', include(router.urls)),

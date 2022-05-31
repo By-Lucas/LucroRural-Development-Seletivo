@@ -1,7 +1,6 @@
 from django.db import models
 from fornecedor.models import Fornecedor
 from notafiscal.models import Nota_Fiscal
-from multiselectfield import MultiSelectField
 import uuid
 
 class Contas_Pagar(models.Model):

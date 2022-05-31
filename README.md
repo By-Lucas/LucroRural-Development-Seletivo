@@ -2,13 +2,62 @@
 ## work-at-lucrorural-dev
 **<p>Candidate-se a um emprego na LucroRural Development Team</p>**
 
-<p>
-Lucro Rural é uma plataforma que atua em três grandes áreas: Comercial, Financeiro e Tributário para gerar mais lucro para pequenos e médios Produtores Rurais de todo o Brasil além de revolucionar a integração dos Produtores Rurais com o Escritório de Contabilidade Agro 🌱🌾
 
-A equipe de desenvolvimento da Lucro Rural tem um guia (leia!) com boas práticas para desenvolver a equipe e a qualidade de software.
+# Passo a passo
+**Informações do projeto:**
+- API para consumo externa
+- Importar csv Fornecedores + Visualidação de dados + delete
+- Importar csv Notas fiscais + Visualidação de dados + delete
+- Campo de cadastro, editar e deletar Contas a pagar
+- Cadastro de usuário e login
+- O novo usuário cadastrado entra no grupo cliente, e com isso ele é limitado a algumas funções(não pdoe deletar, os dados CNPJ e CPF não é visivel completamente)
+- O usuário ADMIN, pode alterar e deletar informações(Tem acesso visivel a todas as informações)
 
-Estamos sempre à procura de pessoas engajadas no nosso propósito e damos preferência a pequenas equipes com profissionais qualificados em detrimento de grandes equipes com profissionais médios.
+***Usuario ADMIN: lucasdev | Senha: 123***
 
-Este repositório contém um problema usado para avaliar as habilidades dos candidatos. Observe que a resolução do problema é apenas uma parte do que será avaliado, levaremos em conta as melhores práticas de codificação, a documentação e os testes.
-</p>
+***Faça o cadastro de um novo usuário para poder ver as informações cripitografadas***
 
+**Tecnologias**
+- Django
+- Python
+- Postgres
+- Heroku
+- Bootstrap
+- JavaScript
+- Css
+- Html
+
+
+**Criar ambiente virtual e Instalar bibliotecas**
+~~~ shell
+pip install virtualenv
+~~~
+~~~ shell
+python -m venv venv
+~~~
+~~~ shell
+pip install -r requirements.txt
+~~~
+
+**Rodar aplicação**
+
+~~~ shell
+Python manage.py runserver
+~~~
+
+#
+
+<div align=center>
+
+## Api Contas a pagar
+<img src='media/img-readme/contas.png'>
+
+#
+## Api Fornecedor
+<img src='media/img-readme/fornnecedor.png'>
+
+#
+## Api Notas
+<img src='media/img-readme/notas.png'>
+
+</div>

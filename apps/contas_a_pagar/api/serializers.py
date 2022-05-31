@@ -6,5 +6,7 @@ from  contas_a_pagar.models import Contas_Pagar
 
 class  Contas_Pagar_serializer(serializers.ModelSerializer):
     class Meta:
+        ordering = ['-id']
         model = Contas_Pagar
-        fields = '__all__'
+        fields = ("id", "fornecedor", "data_vencimento", "pago", "ids_notas_fiscais")
+        extra_kwargs = {'books': {'required': False}}

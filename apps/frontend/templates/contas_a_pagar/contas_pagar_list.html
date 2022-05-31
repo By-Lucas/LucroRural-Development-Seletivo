@@ -68,10 +68,11 @@
                             <td scope="row"><a href="{% url 'ContasUpdateView' contas_Pagar.pk %}">
                                 {{contas_Pagar.fornecedor}}
                             </td></a>
-                            <td>{{ contas_Pagar.fornecedor.cnpj }}</td>
                             {% if request.user.groups.all.0.name == 'admin' or request.user.groups.all.0.name == 'dono' %}
-                                <td>{{ contas_Pagar.fornecedor.telefone }}</td>
+                            <td>{{ contas_Pagar.fornecedor.cnpj }}</td>
+                            <td>{{ contas_Pagar.fornecedor.telefone }}</td>
                             {% else %}
+                                <td>{{ contas_Pagar.fornecedor.get_cnpj }}</td>
                                 <td>{{ contas_Pagar.fornecedor.get_telefone }}</td>
                             {% endif %}
                             <td>{{ contas_Pagar.data_vencimento }}</td>

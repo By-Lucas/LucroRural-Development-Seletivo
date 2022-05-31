@@ -2,10 +2,7 @@ from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.urls import reverse_lazy
-from django.views.generic import (
-            ListView, UpdateView,
-            DeleteView
-            )
+from django.views.generic import UpdateView, DeleteView
 
 from django.contrib import messages
 from django.contrib.messages import constants
@@ -81,7 +78,7 @@ def FornecedorCreate(request):
 
 class FornecedorEdit(UpdateView):
     model: Fornecedor
-    fields=['id', 'nome', 'cnpj', 'telefone']
+    fields=['nome', 'cnpj', 'telefone']
     success_url = reverse_lazy('all_fornecedores')
 
 

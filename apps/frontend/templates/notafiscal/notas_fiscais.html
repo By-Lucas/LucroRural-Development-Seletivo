@@ -65,7 +65,7 @@
                 {% for nota_fiscal in posts.object_list %}
                     <tbody>
                         <tr>
-                            <th scope="row tabela"><a href="{% url 'FornecedorEdit' nota_fiscal.id %}">{{nota_fiscal.numero_da_nota}}</a></th>
+                            <th scope="row tabela"><a href="{% url 'NotaUpdateView' nota_fiscal.pk %}">{{nota_fiscal.numero_da_nota}}</a></th>
                             <td>{{nota_fiscal.fornecedor}}</td>
                                 <td>{{nota_fiscal.nome_produto}}</td>
                                 <td>{{nota_fiscal.data_emissao_nota}}</td>
