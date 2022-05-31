@@ -1,1 +1,1 @@
-web gunicorn sorteio.wsgi --log-file -
+web gunicorn lucrorual_main.wsgi --log-file -
