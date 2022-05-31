@@ -56,6 +56,7 @@ DATE_FORMAT = '%Y-%m-%d'
 DATE_INPUT_FORMATS  = ['%Y-%m-%d']
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware', # Colocar esse codigo aqui, no segundo lugar
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

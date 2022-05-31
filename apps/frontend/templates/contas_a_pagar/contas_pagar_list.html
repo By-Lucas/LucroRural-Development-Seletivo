@@ -28,9 +28,10 @@
             <thead>
               <tr>
                 <th scope="col">Fornecedor</th>
-                <th scope="col">Data vencimento</th>
+                <th scope="col">CNPJ</th>
+                <th scope="col">Telefone</th>
+                <th scope="col">Ddta vencimento</th>
                 <th scope="col">Status</th>
-                <th scope="col">ID das notas</th>
                 {% if request.user.groups.all.0.name == 'admin' or request.user.groups.all.0.name == 'dono' %}
                     <th scope="col">Opcções</th>
                 {% endif %}
@@ -40,14 +41,25 @@
             <tbody>
                 {% for contas_Pagar in contas  %}
                     <tr>
-                        <td  scope="row"><a href="{% url 'ContasUpdateView' contas_Pagar.pk %}">{{ contas_Pagar.fornecedor }}</a></td>
+                        <td scope="row"><a href="{% url 'ContasUpdateView' contas_Pagar.pk %}">
+                            {{contas_Pagar.fornecedor}}
+                        </td></a>
+                        <td>{{ contas_Pagar.fornecedor.cnpj }}</td>
                         <td>{{ contas_Pagar.data_vencimento }}</td>
-                        <td>{{ contas_Pagar.pago }}</td>
-                        <td>{% for contas in contas_Pagar.ids_notas_fiscais.all %}{{ contas.id }}{% endfor %}</td>
                         {% if request.user.groups.all.0.name == 'admin' or request.user.groups.all.0.name == 'dono' %}
-                        <td>
-                            <a class="btn btn-danger" href="{% url 'ContasPagarDelete' contas_Pagar.id %}">Delete</a>
-                        </td>
+                            <td>{{ contas_Pagar.fornecedor.telefone }}</td>
+                        {% else %}
+                            <td>{{ contas_Pagar.fornecedor.get_telefone }}</td>
+                        {% endif %}
+                        {% if contas_Pagar.pago == True %}
+                            <td><p class="text-success"><strong>Pagou</strong></p></td>
+                        {% else %}
+                            <td><p class="text-danger"><strong>Não pagou</strong></p></td>
+                        {% endif %}
+                        {% if request.user.groups.all.0.name == 'admin' or request.user.groups.all.0.name == 'dono' %}
+                            <td>
+                                <a class="btn btn-danger" href="{% url 'ContasPagarDelete' contas_Pagar.id %}">Delete</a>
+                            </td>
                         {% endif %}
                     </tr>
                 {% endfor %}
