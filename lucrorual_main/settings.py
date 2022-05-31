@@ -19,7 +19,8 @@ SECRET_KEY = config('SECRET_KEY')
 # Debug com valor False = Modo produção
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['lucrorural.herokuapp.com']
+#lucrorural.herokuapp.com
+ALLOWED_HOSTS = ['*']
 
 TEMPLATES = os.path.join(BASE_DIR, 'templates')
 
