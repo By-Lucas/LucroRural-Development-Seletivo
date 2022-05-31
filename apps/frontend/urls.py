@@ -27,7 +27,7 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('register/', SignUpView.as_view(), name='register'),
-    path('profile/', profileView.as_view(), name='profile'),
+    path('accounts/profile/', profileView.as_view(), name='profile'),
     path('profile/update/', ProfileUpdateView.as_view(), name='profile_update'),
 
     path('export-fornecedor/', export_csv, name='export_csv'),

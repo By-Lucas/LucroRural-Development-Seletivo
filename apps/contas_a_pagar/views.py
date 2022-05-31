@@ -29,7 +29,6 @@ def contas_pagar_list(request):
     context = {
         'contas':contas,
         'posts':posts,
-        #'filtrar':filtrar
     }
     return render(request, 'contas_a_pagar/contas_pagar_list.html', context)
 

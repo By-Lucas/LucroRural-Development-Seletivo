@@ -30,10 +30,10 @@ def all_fornecedores(request):
             Q(nome__icontains=queryset)|
             Q(cnpj__icontains=queryset)
         )
-
     paginator = Paginator(fornecedor, 9)
     page = request.GET.get('page')
     posts = paginator.get_page(page)
+    
     if form.is_valid():
         form.save()
         form = CsvForm()

@@ -1,6 +1,7 @@
 from django.db import models
 import uuid
 
+
 class Csv(models.Model):
     file_name = models.FileField(upload_to='arquivos-csv')
     data_importacao = models.DateTimeField(auto_now=True)
@@ -18,7 +19,6 @@ class Fornecedor(models.Model):
     telefone = models.CharField(max_length=14, null=False, blank=False, db_column='telefone')
     data_cadastro = models.DateTimeField(auto_now=True)
 
-    #colocar pontos e traços no CPF
     def get_cnpj(self):
         if self.cnpj:
             cnpj = str(self.cnpj)

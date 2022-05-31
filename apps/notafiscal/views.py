@@ -16,8 +16,8 @@ import csv
 def notas_fiscais(request):
     nota_fiscal = Nota_Fiscal.objects.all().order_by('nome_produto')
     form = CsvNotaForm(request.POST, request.FILES or None)
-
     queryset = request.GET.get('q')
+
     if queryset:
         nota_fiscal = Nota_Fiscal.objects.filter(
             Q(numero_da_nota__icontains=queryset)|
@@ -25,7 +25,6 @@ def notas_fiscais(request):
             Q(nome_produto__icontains=queryset)|
             Q(categoria__icontains=queryset)
         )
-
     paginator = Paginator(nota_fiscal, 9)
     page = request.GET.get('page')
     posts = paginator.get_page(page)
@@ -63,6 +62,7 @@ def notas_fiscais(request):
     }
     return render(request, 'notafiscal/notas_fiscais.html',context)
 
+
 def export_notas_csv(request):
     queryset = Nota_Fiscal.objects.all()
     options = Nota_Fiscal._meta
@@ -74,6 +74,7 @@ def export_notas_csv(request):
     for obj in queryset:
         write.writerow([getattr(obj, field) for field in fields])
     return responde
+
 
 def NotasFiscaisCreate(request):
     form  = NotaFiscalForm(request.POST)

@@ -15,7 +15,6 @@ class Contas_Pagar(models.Model):
         verbose_name  = 'Contas_pagar'
         verbose_name_plural = 'Contas_pagar'
         managed = True
-        #unique_together = ('id', 'pago') Tabelas com id ou informações unicas
 
     def __str__(self) -> str:
         return f'ID Conta: {self.id}'

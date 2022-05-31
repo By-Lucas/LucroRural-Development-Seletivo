@@ -10,18 +10,20 @@ from django.contrib.messages import constants
 
 from .forms import UserForm, ProfileForm, SignUpForm
 
+
 class LoginView(auth_views.LoginView):
     template_name = 'login/login.html'
     success_url: reverse_lazy('profile')
     def get(self, request):
         return render(request, self.template_name, {'form': AuthenticationForm})
 
+
 class LogoutView(auth_views.LogoutView):
     next_page = 'index'
 
+
 class profileView(TemplateView):
     template_name = 'profile.html'
-
     def get(self, request):
         user = request.user
         profile = user.profile
@@ -33,9 +35,9 @@ class profileView(TemplateView):
         }
         return render(request, self.template_name, context)
 
+
 class ProfileUpdateView(TemplateView):
     template_name = 'profile-edit.html'
-
     def get(self, request):
         user = request.user
         profile = user.profile
@@ -62,6 +64,7 @@ class ProfileUpdateView(TemplateView):
             'profile_form':profile_form
         }
         return self.render_to_response(context)
+
 
 class SignUpView(CreateView):
     form_class = SignUpForm
