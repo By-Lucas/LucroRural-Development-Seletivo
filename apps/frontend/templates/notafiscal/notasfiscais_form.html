@@ -45,24 +45,8 @@
               <form action="" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-group">
-                    <label class="control-label  " for="id_nome">Nome</label>
-                    <div class=" ">
-                        <input type="text" name="nome" maxlength="100" class=" form-control" required="" id="id_nome" placeholder="Digite seu nome">
-                        <span class="help-block ">* Este campo é obrigatório.</span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label  " for="cpf_cnpj">CNPJ</label>
-                    <div class=" ">
-                        <input type="text" name="cnpj" maxlength="18" class="form-control cnpj" required="" placeholder="00.000.000/0000-00" id="cpf_cnpj">
-                        <span class="help-block ">* Este campo é obrigatório.</span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label  " for="id_telefone">Telefone</label>
-                    <div class=" ">
-                        <input type="text" name="telefone" maxlength="14" class="form-control telefone" required="" placeholder="(00)00000-0000" id="id_telefone">
-                        <span class="help-block ">* Este campo é obrigatório.</span>
+                    <div class=" col-sm">
+                      {{form|bootstrap}}
                     </div>
                 </div>
                 <br>

@@ -12,7 +12,7 @@ from .forms import UserForm, ProfileForm, SignUpForm
 
 class LoginView(auth_views.LoginView):
     template_name = 'login/login.html'
-    next_page = 'profile'
+    success_url: reverse_lazy('profile')
     def get(self, request):
         return render(request, self.template_name, {'form': AuthenticationForm})
 
