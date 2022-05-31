@@ -24,9 +24,19 @@
             {% endfor %}
         {% endif %}
     </div>
+    <form method="GET" class="row">
+        <div class="col-sm" style="align-items:center; padding: 10px 0px;">
+            <div class="input-group">
+                <input name="q" value="{{ request.GET.q }}" type="search" class="form-control rounded" placeholder="Buscar por nome ou CNPJ" aria-label="Search" aria-describedby="search-addon" />
+                <button type="submit" id="search-button"  class="btn btn-primary">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </form>
 
     <div class="row">
-        <div class="col">
+        <div class="col-sm">
             <a style="margin:10px 0px; float: left;"  href="{% url 'Create_Fornecedor' %}" class="btn btn-success col-md-6">Novo fornecedor</a>
         </div>
         <div class="col col-md-3">
@@ -35,11 +45,11 @@
         <div class="col col-md-3">
             <a style="margin:10px 0px; float: right;"  href="{% url 'export_csv' %}" class="btn btn-warning col-md-12">Exportar csv fornecedor</button></a>
         </div>
+        
         <div class="table table-responsive">
             <table class="table  table-bordered">
                 <thead>
                     <tr>
-                        <th scope="col">ID</th>
                         <th scope="col">Nome</th>
                         <th scope="col">CNPJ</th>
                         <th scope="col">Telefone</th>
@@ -51,15 +61,15 @@
                 {% for fornecedor in posts.object_list %}
                     <tbody>
                         <tr>
-                            <th scope="row tabela"><a href="{% url 'FornecedorEdit' fornecedor.pk %}">{{fornecedor.id}}</a></th>
-                            <td class="tabela">{{fornecedor.nome}}</td>
-                            <td>{{fornecedor.cnpj}}</td>
+                            <td class="tabela"> <a href="{% url 'FornecedorEdit' fornecedor.pk %}">{{fornecedor.nome}}</a></td>
                             {% if request.user.groups.all.0.name == 'admin' or request.user.groups.all.0.name == 'dono' %}
+                                <td>{{fornecedor.cnpj}}</td>
                                 <td>{{fornecedor.telefone}}</td>
                                 <td>
                                     <a href="{% url 'FornecedorDelete' fornecedor.id %}" class="btn btn-danger" style="justify-content: center; display: flex;">Deletar</a>
                                 </td>
                             {% else %}
+                                <td>{{fornecedor.get_cnpj}}</td>
                                 <td>{{fornecedor.get_telefone}}</td>
                             {% endif %}
                         </tr>

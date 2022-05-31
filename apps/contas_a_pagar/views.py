@@ -1,28 +1,35 @@
-from multiprocessing import context
 from django.shortcuts import redirect, render
 from django.views.generic import (
             ListView, UpdateView,
-            DeleteView, CreateView,TemplateView
+            DeleteView,
             )
 from django.urls import reverse_lazy
 from django.core.paginator import Paginator
-# Alertas de messagens
+from django.db.models import Q
+
 from django.contrib import messages
 from django.contrib.messages import constants
 
 from .models import Contas_Pagar
 from .forms import ContaPagarForm
 
-
-
 def contas_pagar_list(request):
-    contas = Contas_Pagar.objects.all().order_by('data_vencimento')
+    queryset = request.GET.get('q')
+    contas = Contas_Pagar.objects.all()
+
+    if queryset:
+        contas = Contas_Pagar.objects.filter(
+            Q(fornecedor__nome__icontains=queryset)|
+            Q(data_vencimento__icontains=queryset)
+        )
+
     paginator = Paginator(contas, 9)
     page = request.GET.get('page')
     posts = paginator.get_page(page)
     context = {
         'contas':contas,
-        'posts':posts
+        'posts':posts,
+        #'filtrar':filtrar
     }
     return render(request, 'contas_a_pagar/contas_pagar_list.html', context)
 

@@ -1,12 +1,7 @@
-from dataclasses import replace
-from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
+from django.shortcuts import render, redirect, HttpResponse
 from django.core.paginator import Paginator
-from django.contrib.auth.models import User
+from django.db.models import Q
 from django.urls import reverse_lazy
-from django.views.generic import (
-            ListView, UpdateView,
-            DeleteView, CreateView,TemplateView
-            )
 
 from django.contrib import messages
 from django.contrib.messages import constants
@@ -19,9 +14,20 @@ import csv
 def notas_fiscais(request):
     nota_fiscal = Nota_Fiscal.objects.all().order_by('nome_produto')
     form = CsvNotaForm(request.POST, request.FILES or None)
+
+    queryset = request.GET.get('q')
+    if queryset:
+        nota_fiscal = Nota_Fiscal.objects.filter(
+            Q(numero_da_nota__icontains=queryset)|
+            Q(fornecedor__icontains=queryset)|
+            Q(nome_produto__icontains=queryset)|
+            Q(categoria__icontains=queryset)
+        )
+
     paginator = Paginator(nota_fiscal, 9)
     page = request.GET.get('page')
     posts = paginator.get_page(page)
+
     if form.is_valid():
         form.save()
         form = CsvNotaForm()

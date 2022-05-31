@@ -25,6 +25,17 @@
         {% endif %}
     </div>
 
+    <form method="GET" class="row">
+        <div class="col-md" style="align-items:center; padding: 10px 0px;">
+            <div class="input-group">
+                <input name="q" value="{{ request.GET.q }}" type="search" class="form-control rounded" placeholder="Buscar por Nº nota,  produto, data  ou categoria" aria-label="Search" aria-describedby="search-addon" />
+                <button type="submit" id="search-button"  class="btn btn-primary">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+
     <div class="row">
         <div class="col-sm">
             <a style="margin:10px 0px; float: left;"  href="{% url 'NotasFiscaisCreate' %}" class="btn btn-success col-md-6">Nova nota fiscal</a>
@@ -40,7 +51,7 @@
                 <thead>
                     <tr>
                         <th scope="col">Nº nota</th>
-                        <th scope="col">Fornecedor</th>
+                        <th scope="col">Fornecedor ID</th>
                         <th scope="col">Produto</th>
                         <th scope="col">Data emissão</th>
                         <th scope="col">Categoria</th>

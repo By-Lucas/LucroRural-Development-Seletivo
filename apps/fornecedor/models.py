@@ -22,12 +22,12 @@ class Fornecedor(models.Model):
     def get_cnpj(self):
         if self.cnpj:
             cnpj = str(self.cnpj)
-            cnpj_parte_1 = cnpj[0:2]
+            cnpj_parte_1 = cnpj[0:4]
             cnpj_parte_2 = cnpj[2:5]
             cnpj_parte_3 = cnpj[5:8]
             cnpj_parte_4 = cnpj[8:12]
-            cnpj_parte_5 = cnpj[12:14]
-            cnpj_formatado = f"{cnpj_parte_1}.{cnpj_parte_2}.{cnpj_parte_3}/{cnpj_parte_4}-{cnpj_parte_5}"
+            cnpj_parte_5 = cnpj[14:18]
+            cnpj_formatado = f"{cnpj_parte_1}**.***/****-{cnpj_parte_5}"
             return cnpj_formatado
 
     def get_telefone(self):
@@ -35,7 +35,7 @@ class Fornecedor(models.Model):
             telefone = str(self.telefone)
             telefone_parte_1 = telefone[0:7]
             telefone_parte_2 = telefone[12:14]
-            telefone_formatado = f"{telefone_parte_1}### - ##{telefone_parte_2}"
+            telefone_formatado = f"{telefone_parte_1}*** - **{telefone_parte_2}"
             return telefone_formatado
 
     class Meta:

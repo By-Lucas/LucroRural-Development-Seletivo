@@ -1,6 +1,13 @@
 {% extends 'base.html' %}
 {% load bootstrap %}
 
+{% load static %}
+
+{% block head %}
+<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="{% static 'contas_pagar/filter.js' %}"></script>
+{% endblock %}
+
 {% block body %}
 <div class="container">
     <div style="align-items: center; display:flex; justify-content: center;">
@@ -16,55 +23,73 @@
                 </div>
             {% endfor %}
         {% endif %}
-      </div>
-    <div class="row">
-      <div class="col-md" style="align-items: center; padding-top: 15px;">
-        <h1>Contas a pagar</1>
     </div>
-    <div class="col-md" style="align-items: center; padding-top: 15px;">
-        <a href="{% url 'ContasPagarCreate' %}" class="btn btn-outline-success" style="float: right; font-size: 18px;"><i class="fa-solid fa-file-invoice-dollar"></i> Nova conta</a>
+    
+    <div class="form-group" style="justify-content: center; display: flex;">
+        <div class="" style="align-items: center; padding-top: 15px; color: green;">
+            <h1><strong> Contas a pagar </strong></h1>
+        </div>
     </div>
-        <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th scope="col">Fornecedor</th>
-                <th scope="col">CNPJ</th>
-                <th scope="col">Telefone</th>
-                <th scope="col">Ddta vencimento</th>
-                <th scope="col">Status</th>
-                {% if request.user.groups.all.0.name == 'admin' or request.user.groups.all.0.name == 'dono' %}
-                    <th scope="col">Opcções</th>
-                {% endif %}
-              </tr>
-            </thead>
 
-            <tbody>
-                {% for contas_Pagar in contas  %}
-                    <tr>
-                        <td scope="row"><a href="{% url 'ContasUpdateView' contas_Pagar.pk %}">
-                            {{contas_Pagar.fornecedor}}
-                        </td></a>
-                        <td>{{ contas_Pagar.fornecedor.cnpj }}</td>
-                        <td>{{ contas_Pagar.data_vencimento }}</td>
-                        {% if request.user.groups.all.0.name == 'admin' or request.user.groups.all.0.name == 'dono' %}
-                            <td>{{ contas_Pagar.fornecedor.telefone }}</td>
-                        {% else %}
-                            <td>{{ contas_Pagar.fornecedor.get_telefone }}</td>
-                        {% endif %}
-                        {% if contas_Pagar.pago == True %}
-                            <td><p class="text-success"><strong>Pagou</strong></p></td>
-                        {% else %}
-                            <td><p class="text-danger"><strong>Não pagou</strong></p></td>
-                        {% endif %}
-                        {% if request.user.groups.all.0.name == 'admin' or request.user.groups.all.0.name == 'dono' %}
-                            <td>
-                                <a class="btn btn-danger" href="{% url 'ContasPagarDelete' contas_Pagar.id %}">Delete</a>
-                            </td>
-                        {% endif %}
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <form method="GET" class="row">
+        <div class="col-sm" style="align-items:center; padding: 10px 0px;">
+            <div class="input-group">
+                <input name="q" value="{{ request.GET.q }}" type="search" class="form-control rounded" placeholder="Buscar po fornecedor ou data" aria-label="Search" aria-describedby="search-addon" />
+                <button type="submit" id="search-button"  class="btn btn-primary">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+    
+    <div class="row">
+        <div class="col-sm" style="align-items:center; padding: 10px 0px;">
+            <a href="{% url 'ContasPagarCreate' %}" class="btn btn-outline-success " style="float: right; font-size: 24px;">
+            <i class="fa-solid fa-file-invoice-dollar"></i> Cadastrar</a>
+        </div>
+        <div class="table table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">Fornecedor</th>
+                    <th scope="col">CNPJ</th>
+                    <th scope="col">Telefone</th>
+                    <th scope="col">Ddta vencimento</th>
+                    <th scope="col">Status</th>
+                    {% if request.user.groups.all.0.name == 'admin' or request.user.groups.all.0.name == 'dono' %}
+                        <th scope="col">Opcções</th>
+                    {% endif %}
+                </tr>
+                </thead>
+
+                <tbody>
+                    {% for contas_Pagar in contas  %}
+                        <tr>
+                            <td scope="row"><a href="{% url 'ContasUpdateView' contas_Pagar.pk %}">
+                                {{contas_Pagar.fornecedor}}
+                            </td></a>
+                            <td>{{ contas_Pagar.fornecedor.cnpj }}</td>
+                            {% if request.user.groups.all.0.name == 'admin' or request.user.groups.all.0.name == 'dono' %}
+                                <td>{{ contas_Pagar.fornecedor.telefone }}</td>
+                            {% else %}
+                                <td>{{ contas_Pagar.fornecedor.get_telefone }}</td>
+                            {% endif %}
+                            <td>{{ contas_Pagar.data_vencimento }}</td>
+                            {% if contas_Pagar.pago == True %}
+                                <td><p class="text-success"><strong>Pagou</strong></p></td>
+                            {% else %}
+                                <td><p class="text-danger"><strong>Não pagou</strong></p></td>
+                            {% endif %}
+                            {% if request.user.groups.all.0.name == 'admin' or request.user.groups.all.0.name == 'dono' %}
+                                <td>
+                                    <a class="btn btn-danger" href="{% url 'ContasPagarDelete' contas_Pagar.id %}">Delete</a>
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <nav aria-label="Navegação de página exemplo">

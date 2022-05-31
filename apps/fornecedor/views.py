@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.core.paginator import Paginator
-from django.contrib.auth.models import User
+from django.db.models import Q
 from django.urls import reverse_lazy
 from django.views.generic import (
             ListView, UpdateView,
-            DeleteView, CreateView,TemplateView
+            DeleteView
             )
 
 from django.contrib import messages
@@ -24,8 +24,16 @@ def export_csv(request):
 
 
 def all_fornecedores(request):
-    fornecedor = Fornecedor.objects.all().order_by('nome')
     form = CsvForm(request.POST, request.FILES or None)
+    fornecedor = Fornecedor.objects.all().order_by('nome')
+    queryset = request.GET.get('q')
+
+    if queryset:
+        fornecedor = Fornecedor.objects.filter(
+            Q(nome__icontains=queryset)|
+            Q(cnpj__icontains=queryset)
+        )
+
     paginator = Paginator(fornecedor, 9)
     page = request.GET.get('page')
     posts = paginator.get_page(page)
