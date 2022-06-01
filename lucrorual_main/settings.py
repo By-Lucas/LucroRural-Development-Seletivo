@@ -53,9 +53,6 @@ INSTALLED_APPS +=[
 IMPORT_EXPORT_USE_TRANSACTIONS = True 
 
 
-DATE_FORMAT = '%Y-%m-%d'
-DATE_INPUT_FORMATS  = '%Y-%m-%d'
-
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
