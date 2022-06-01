@@ -1,6 +1,6 @@
 from pathlib import Path
 from django.contrib.messages import constants
-from decouple import config
+from decouple import config, Csv
 import sys, os
 import django_heroku
 
@@ -15,10 +15,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-
+# Debug com valor True = Modo desenvolvimento
+# Debug com valor False = Modo produção
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-
+#lucrorural.herokuapp.com
 ALLOWED_HOSTS = ['*']
 
 TEMPLATES = os.path.join(BASE_DIR, 'templates')
@@ -51,6 +52,9 @@ INSTALLED_APPS +=[
 
 IMPORT_EXPORT_USE_TRANSACTIONS = True 
 
+
+DATE_FORMAT = '%Y-%m-%d'
+DATE_INPUT_FORMATS  = '%Y-%m-%d'
 
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',

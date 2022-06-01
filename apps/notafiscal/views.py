@@ -15,6 +15,7 @@ import csv
 
 def notas_fiscais(request):
     nota_fiscal = Nota_Fiscal.objects.all().order_by('nome_produto')
+    print(Nota_Fiscal.fornecedor)
     form = CsvNotaForm(request.POST, request.FILES or None)
     queryset = request.GET.get('q')
 
@@ -40,11 +41,11 @@ def notas_fiscais(request):
                 fornecedores.append(rows)
             for row in fornecedores:
                 data = row[2]
-                n1 = f'{data[8:10]}/{data[5:7]}/{data[0:4]}'
+                print(data)
                 if len(row) > 0:
                     Nota_Fiscal.objects.update_or_create(
                         numero_da_nota=row[0],
-                        fornecedor=row[1],
+                        #fornecedor=row[1],
                         data_emissao_nota=row[2],
                         nome_produto=row[3],
                         categoria=row[4],
