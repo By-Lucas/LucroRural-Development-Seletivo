@@ -1,6 +1,5 @@
 # SELETIVO LUCRO RURAL
 ## work-at-lucrorural-dev
-**<p>Candidate-se a um emprego na LucroRural Development Team</p>**
 
 # Repositorio: https://seletivo-lucrorural.herokuapp.com/
 
