@@ -1,6 +1,6 @@
 from pathlib import Path
 from django.contrib.messages import constants
-from decouple import config, Csv
+from decouple import config
 import sys, os
 import django_heroku
 
@@ -15,11 +15,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# Debug com valor True = Modo desenvolvimento
-# Debug com valor False = Modo produção
+
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-#lucrorural.herokuapp.com
+
 ALLOWED_HOSTS = ['*']
 
 TEMPLATES = os.path.join(BASE_DIR, 'templates')
@@ -50,12 +49,8 @@ INSTALLED_APPS +=[
     'frontend'
 ]
 
-IMPORT_EXPORT_USE_TRANSACTIONS = True # Import Export csv | pip install django-import-export
+IMPORT_EXPORT_USE_TRANSACTIONS = True 
 
-#DATE_FORMAT = "%d%m/%Y"
-
-DATE_FORMAT = '%Y-%m-%d'
-DATE_INPUT_FORMATS  = ['%Y-%m-%d']
 
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -93,15 +88,6 @@ WSGI_APPLICATION = 'lucrorual_main.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
-"""
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-"""
 
 #import dj_database_url
 #db_from_env = dj_database_url.config(conn_max_age=600)
