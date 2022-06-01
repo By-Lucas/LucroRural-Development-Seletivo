@@ -23,9 +23,6 @@ class Fornecedor(models.Model):
         if self.cnpj:
             cnpj = str(self.cnpj)
             cnpj_parte_1 = cnpj[0:4]
-            cnpj_parte_2 = cnpj[2:5]
-            cnpj_parte_3 = cnpj[5:8]
-            cnpj_parte_4 = cnpj[8:12]
             cnpj_parte_5 = cnpj[14:18]
             cnpj_formatado = f"{cnpj_parte_1}**.***/****-{cnpj_parte_5}"
             return cnpj_formatado
@@ -44,4 +41,4 @@ class Fornecedor(models.Model):
         verbose_name_plural = 'Fornecedores'
     
     def __str__(self) -> str:
-        return self.nome
+        return f'{self.id}'
