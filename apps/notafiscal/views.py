@@ -1,9 +1,9 @@
-from pyexpat import model
 from django.shortcuts import render, redirect, HttpResponse
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView, DeleteView
+from django.contrib.auth.decorators import login_required
 
 from django.contrib import messages
 from django.contrib.messages import constants
@@ -40,8 +40,6 @@ def notas_fiscais(request):
             for rows in data[1:]:
                 fornecedores.append(rows)
             for row in fornecedores:
-                data = row[2]
-                print(data)
                 if len(row) > 0:
                     Nota_Fiscal.objects.update_or_create(
                         numero_da_nota=row[0],
