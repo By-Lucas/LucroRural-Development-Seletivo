@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.urls import reverse_lazy
@@ -18,7 +18,6 @@ def notas_fiscais(request):
     print(Nota_Fiscal.fornecedor)
     form = CsvNotaForm(request.POST, request.FILES or None)
     queryset = request.GET.get('q')
-
     if queryset:
         nota_fiscal = Nota_Fiscal.objects.filter(
             Q(numero_da_nota__icontains=queryset)|
@@ -88,12 +87,21 @@ def NotasFiscaisCreate(request):
     return render(request, 'notafiscal/notasfiscais_form.html',{'form':form})
 
 
-class NotaUpdateView(UpdateView):
-    template_name = 'notafiscal/notafiscal_edit.html' 
-    model: Nota_Fiscal
-    fields = [
-            'id','numero_da_nota', 'fornecedor', 
-            'data_emissao_nota', 'nome_produto', 
-            'categoria', 'quantidade', 'valor_total'
-            ]
-    success_url = reverse_lazy('notas_fiscais') 
+def Nota_edit(request, id):
+    form = get_object_or_404(Nota_Fiscal, id=id)
+    if request.method == "POST":
+        form = NotaFiscalForm(request.POST, instance=form)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.save()
+            messages.add_message(request, constants.SUCCESS, 'Nota atualizada com sucesso!')
+            return redirect('notas_fiscais')
+    else:
+        form = NotaFiscalForm(instance=form)
+    return render(request, 'notafiscal/notafiscal_edit.html', {'form': form})
+
+def nota_delete(request, id):
+    form = get_object_or_404(Nota_Fiscal, pk=id)
+    form.delete()
+    return redirect('notas_fiscais')
+

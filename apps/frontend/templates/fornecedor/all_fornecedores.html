@@ -61,7 +61,7 @@
                 {% for fornecedor in posts.object_list %}
                     <tbody>
                         <tr>
-                            <td class="tabela"><a href="#exampleModal2" data-toggle="modal" data-target="#exampleModal2">{{fornecedor.nome}}</a></td>
+                            <td class="tabela"><a href="{% url 'fornecedor_edit' fornecedor.id %}">{{fornecedor.nome}}</a></td>
                             {% if request.user.groups.all.0.name == 'admin' or request.user.groups.all.0.name == 'dono' %}
                                 <td>{{fornecedor.cnpj}}</td>
                                 <td>{{fornecedor.telefone}}</td>

@@ -65,7 +65,7 @@
                 {% for nota_fiscal in posts.object_list %}
                     <tbody>
                         <tr>
-                            <th scope="row tabela"><a href="exampleModal3" a href="#exampleModal2" data-toggle="modal" data-target="#exampleModal3">{{nota_fiscal.numero_da_nota}}</a></th>
+                            <th scope="row tabela"><a href="{% url 'Nota_edit' nota_fiscal.pk %}">{{nota_fiscal.numero_da_nota}}</a></th>
                             <td>{{nota_fiscal.fornecedor}}</td>
                                 <td>{{nota_fiscal.nome_produto}}</td>
                                 <td>{{nota_fiscal.data_emissao_nota}}</td>
@@ -74,7 +74,10 @@
                                 <td>{{nota_fiscal.valor_total}}</td>
                             {% if request.user.groups.all.0.name == 'admin' or request.user.groups.all.0.name == 'dono' %}
                             <td>
-                                <a href="{% url 'FornecedorDelete' nota_fiscal.id %}" class="btn btn-danger" style="justify-content: center; display: flex;">Deletar</a>
+                                <form action="{% url 'nota_delete' nota_fiscal.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <button type="" class="btn btn-danger" style="justify-content: center; display: flex;">Deletar</a>
+                                </form>
                             </td>
                             {% endif %}
                         </tr>
@@ -127,24 +130,5 @@
             {% endif %}
         </ul>
     </nav>
-
-    <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Em breve</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-             SERA ADCIONADO FUNÇÕES EM BREVE
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
 </div>
 {% endblock body %}

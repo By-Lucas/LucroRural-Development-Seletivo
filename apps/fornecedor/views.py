@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.urls import reverse_lazy
-from django.views.generic import UpdateView, DeleteView
+from django.views.generic import DeleteView
 from django.contrib.auth.decorators import login_required
 
 from django.contrib import messages
@@ -63,6 +63,7 @@ def all_fornecedores(request):
     }
     return render(request, 'fornecedor/all_fornecedores.html',context)
 
+
 @login_required
 def FornecedorCreate(request):
     form  = FornecedorForm(request.POST)
@@ -77,10 +78,18 @@ def FornecedorCreate(request):
     return render(request, 'fornecedor/fornecedor_form.html',{'form':form})
 
 
-class FornecedorEdit(UpdateView):
-    model: Fornecedor
-    fields=['nome', 'cnpj', 'telefone']
-    success_url = reverse_lazy('all_fornecedores')
+def fornecedor_edit(request, id):
+    form = get_object_or_404(Fornecedor, id=id)
+    if request.method == "POST":
+        form = FornecedorForm(request.POST, instance=form)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.save()
+            messages.add_message(request, constants.SUCCESS, 'Fornecedor(a) atualizado com sucesso!')
+            return redirect('all_fornecedores')
+    else:
+        form = FornecedorForm(instance=form)
+    return render(request, 'fornecedor/FornecedorEdit.html', {'form': form})
 
 
 class FornecedorDelete(DeleteView):
